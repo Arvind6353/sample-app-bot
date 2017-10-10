@@ -147,5 +147,5 @@ function nmlMessage(recipientId, text){
 		out=" I am fine. How are you ? "
 
 	sendMessage(recipientId, {text: out });
-    return false;
+    return true;
 }
