@@ -18,7 +18,7 @@ app.get('/webhook', function (req, res) {
     
     console.log('heloooo greeting--->')
         res.send(req.query['hub.challenge']);
-        sendGreetingMsg();
+//        sendGreetingMsg();
      } else {
         res.send('Invalid verify token');
     }
@@ -47,9 +47,9 @@ app.post('/webhook', function (req, res) {
             console.log("location part")
 			  }
  		    else if (!picMessage(event.sender.id, event.message.text)) {
-            if(!nmlMessage(event.sender.id, event.message.text)){
-                sendMessage(event.sender.id, {text: event.message.text +" :) "});
-            }
+                if(!nmlMessage(event.sender.id, event.message.text)){
+                    sendMessage(event.sender.id, {text: event.message.text +" :) "});
+                }
     		}
 		  }
     }
