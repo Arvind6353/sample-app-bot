@@ -15,11 +15,16 @@ app.get('/', function (req, res) {
 // Facebook Webhook
 app.get('/webhook', function (req, res) {  
     if (req.query['hub.verify_token'] === 'sample_bot_token') {
+    
+    console.log('heloooo greeting--->')
+        sendGreetingMsg();
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Invalid verify token');
     }
+    
 });
+
 
 // handler receiving messages
 app.post('/webhook', function (req, res) {  
@@ -51,6 +56,8 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 });
 
+
+
 function sendMessage(recipientId, message) {  
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -69,6 +76,19 @@ function sendMessage(recipientId, message) {
     });
 };
 
+
+
+function sendGreetingMsg() {
+    sendMessage(null, {
+        "setting_type":"greeting",
+        "greeting":{
+          "text":"Timeless apparel for the masses."
+        }
+    })
+    
+}
+    
+
 // send rich message with kitten
 function picMessage(recipientId, text) {
 
@@ -76,38 +96,12 @@ function picMessage(recipientId, text) {
     var values = text.split(' ');
     var flag=false;
 
-    if(values[0].toLowerCase()=='sadness'){
-
-    	var imageUrl = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTMEkUULON4O5WwmVius4C6DTJvH2NC2spQFhtWVL5jx8rFdvPH3p655pc";
-    	flag=true;
-    }
-
-   else if(values[0].toLowerCase()=='pizza' || values[0].toLowerCase()=='dominos'){
+   if(values[0].toLowerCase()=='pizza' || values[0].toLowerCase()=='dominos'){
 
     	var imageUrl = "http://martinionheels.com/wp-content/uploads/2016/12/15196070_10154507564607745_8533070322777242582_o-1140x596.jpg";
     	flag=true;
     }
-
-
-   else if(values[0].toLowerCase()=='chinchan' || values[0].toLowerCase()=='shinchan' || values[0].toLowerCase()=='sinchan'){
-
-    	var imageUrl = "https://www.walldevil.com/wallpapers/a49/wallpapers-crayon-background-wallpaper-cartoon.jpg";
-    	flag=true;
-    }
-
-   else if (values.length === 3 && values[0] === 'kitten') {
-        if (Number(values[1]) > 0 && Number(values[2]) > 0) {
-		    var imageUrl = "https://placekitten.com/" + Number(values[1]) + "/" + Number(values[2]);
-			flag=true;
-        }
-    }
-
-	var subtitle="How's it ;)";
 	if(flag){
-		
-		if(values[0].toLowerCase()=='pizza' || values[0].toLowerCase()=='dominos'){
-		 	subtitle="We should try this again :(";
-		}
 	     message = {
 	                "attachment": {
 	                    "type": "template",
@@ -115,7 +109,7 @@ function picMessage(recipientId, text) {
 	                        "template_type": "generic",
 	                        "elements": [{
 	                            "title": values[0],
-	                            "subtitle": "How's it ;)",
+	                            "subtitle": "Requested Image",
 	                            "image_url": imageUrl ,
 	                            "buttons": [{
 	                                "type": "web_url",
