@@ -22,8 +22,6 @@ app.get('/webhook', function (req, res) {
 });
 
 
-
-
 // handler receiving messages
 app.post('/webhook', function (req, res) {  
 
@@ -165,16 +163,6 @@ function nmlMessage(recipientId, text){
 
 	if(text.toLowerCase().indexOf('how are you')!=-1 || text.toLowerCase().indexOf('how r you')!=-1 || text.toLowerCase().indexOf('how r u')!=-1 || text.toLowerCase().indexOf('how are u')!=-1)
 		out=" I am fine. How are you ? "
-
-	if(text.toLowerCase().indexOf('miss u')!=-1 || text.toLowerCase().indexOf('miss you')!=-1)
-		out=" I miss you :("
-
-
-	if(text.toLowerCase().indexOf('i want pizza')!=-1 || text.toLowerCase().indexOf('i need pizza')!=-1)
-		out="I love pizza. I will get you dominos quatraformaggi pizza :D. Just type pizza / dominos :) . "
-
-	if(text.toLowerCase().indexOf('oh')!=-1)
-		out=" oh oh "
 
 
 	sendMessage(recipientId, {text: out });
