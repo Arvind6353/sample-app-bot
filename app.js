@@ -82,20 +82,20 @@ function picMessage(recipientId, text) {
     	flag=true;
     }
 
-    if(values[0].toLowerCase()=='pizza' || values[0].toLowerCase()=='dominos'){
+   else if(values[0].toLowerCase()=='pizza' || values[0].toLowerCase()=='dominos'){
 
     	var imageUrl = "http://martinionheels.com/wp-content/uploads/2016/12/15196070_10154507564607745_8533070322777242582_o-1140x596.jpg";
     	flag=true;
     }
 
 
-    if(values[0].toLowerCase()=='chinchan' || values[0].toLowerCase()=='shinchan' || values[0].toLowerCase()=='sinchan'){
+   else if(values[0].toLowerCase()=='chinchan' || values[0].toLowerCase()=='shinchan' || values[0].toLowerCase()=='sinchan'){
 
     	var imageUrl = "https://www.walldevil.com/wallpapers/a49/wallpapers-crayon-background-wallpaper-cartoon.jpg";
     	flag=true;
     }
 
-    if (values.length === 3 && values[0] === 'kitten') {
+   else if (values.length === 3 && values[0] === 'kitten') {
         if (Number(values[1]) > 0 && Number(values[2]) > 0) {
 		    var imageUrl = "https://placekitten.com/" + Number(values[1]) + "/" + Number(values[2]);
 			flag=true;
@@ -147,5 +147,5 @@ function nmlMessage(recipientId, text){
 		out=" I am fine. How are you ? "
 
 	sendMessage(recipientId, {text: out });
-return false;
+    return false;
 }
