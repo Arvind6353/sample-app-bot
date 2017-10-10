@@ -21,44 +21,35 @@ app.get('/webhook', function (req, res) {
     }
 });
 
-
 // handler receiving messages
 app.post('/webhook', function (req, res) {  
-
-
 
     var events = req.body.entry[0].messaging;
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {  
-
-
-
         	if(event.message.text && event.message.text.indexOf("location")!=-1){
-	        	var message={
-						    "text":"Please share your location:",
-						    "quick_replies":[
-						      {
-						        "content_type":"location",
-						      }
-						    ]
-						  }
+              var message={
+                  "text":"Please share your location:",
+                  "quick_replies":[
+                    {
+                      "content_type":"location",
+                    }
+                  ]
+                }
 
-				sendMessage(event.sender.id, message);			  
-				console.log("location part")
-			}
-
- 		   else if (!picMessage(event.sender.id, event.message.text)) {
-
- 		   		if(!nmlMessage(event.sender.id, event.message.text)){
-        			sendMessage(event.sender.id, {text: event.message.text +" :) "});
-    			}
+            sendMessage(event.sender.id, message);			  
+            console.log("location part")
+			  }
+ 		    else if (!picMessage(event.sender.id, event.message.text)) {
+            if(!nmlMessage(event.sender.id, event.message.text)){
+                sendMessage(event.sender.id, {text: event.message.text +" :) "});
+            }
     		}
-		}
+		  }
     }
     res.sendStatus(200);
 });
-
 
 function sendMessage(recipientId, message) {  
     request({
@@ -78,8 +69,6 @@ function sendMessage(recipientId, message) {
     });
 };
 
-
-
 // send rich message with kitten
 function picMessage(recipientId, text) {
 
@@ -93,14 +82,11 @@ function picMessage(recipientId, text) {
     	flag=true;
     }
 
-
-
     if(values[0].toLowerCase()=='pizza' || values[0].toLowerCase()=='dominos'){
 
     	var imageUrl = "http://martinionheels.com/wp-content/uploads/2016/12/15196070_10154507564607745_8533070322777242582_o-1140x596.jpg";
     	flag=true;
     }
-
 
 
     if(values[0].toLowerCase()=='chinchan' || values[0].toLowerCase()=='shinchan' || values[0].toLowerCase()=='sinchan'){
@@ -144,13 +130,9 @@ function picMessage(recipientId, text) {
 	                    }
 	                }
 	            };
-
-	            
 	      sendMessage(recipientId, message);
 	}
-
             return flag;
-
 }
 
 
@@ -164,7 +146,6 @@ function nmlMessage(recipientId, text){
 	if(text.toLowerCase().indexOf('how are you')!=-1 || text.toLowerCase().indexOf('how r you')!=-1 || text.toLowerCase().indexOf('how r u')!=-1 || text.toLowerCase().indexOf('how are u')!=-1)
 		out=" I am fine. How are you ? "
 
-
 	sendMessage(recipientId, {text: out });
-
+return false;
 }
