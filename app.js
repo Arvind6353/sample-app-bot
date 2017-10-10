@@ -17,13 +17,13 @@ app.get('/webhook', function (req, res) {
     if (req.query['hub.verify_token'] === 'sample_bot_token') {
     
     console.log('heloooo greeting--->')
-        sendGreetingMsg();
         res.send(req.query['hub.challenge']);
-    } else {
+        sendGreetingMsg();
+     } else {
         res.send('Invalid verify token');
     }
-    
 });
+
 
 
 // handler receiving messages
@@ -79,13 +79,26 @@ function sendMessage(recipientId, message) {
 
 
 function sendGreetingMsg() {
-    sendMessage(null, {
-        "setting_type":"greeting",
-        "greeting":{
-          "text":"Timeless apparel for the masses."
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: 'EAAN3s3DTH3sBALO66QmZC5ZBWi84dlacSIswselak01NC4fB9WZB8L4tfCjH455QqabDqsjzzldqgEj5Lq0GjOpyMnICCOUHm0lLwF49f6u3iiltvyVSo1oHZAEUGo1Cofza9Xvtr9bCVCiHR31ZAV9n6Y6gBn2Mwg6y7LzbYgAZDZD'},
+        method: 'POST',
+        json: 
+            {
+                "setting_type":"greeting",
+                "greeting":{
+                  "text":"Timeless apparel for the masses."
+                }
+            }
+        
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
         }
-    })
-    
+    });
+   
 }
     
 
